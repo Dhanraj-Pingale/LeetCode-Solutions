@@ -2,17 +2,19 @@ class Solution {
     public int minimumPushes(String word) {
         HashMap<Character, Integer> hm = new HashMap<>();
         int n = word.length();
-
+       
+        int[] arr = new int[26];
         for (int i = 0; i < n; i++) {
             char c = word.charAt(i);
-            hm.put(c, hm.getOrDefault(c, 0) + 1);
+            // hm.put(c, hm.getOrDefault(c, 0) + 1);
+            arr[c - 'a'] += 1;
         }
-        int[] arr = new int[hm.size()];
-        int i = 0;
-        for (int freq : hm.values()) {
-            arr[i] = freq;
-            i++;
-        }
+
+        // int i = 0;
+        // for (int freq : hm.values()) {
+        //     arr[i] = freq;
+        //     i++;
+        // }
         Arrays.sort(arr);
         int ans = 0;
         int count = 0;
