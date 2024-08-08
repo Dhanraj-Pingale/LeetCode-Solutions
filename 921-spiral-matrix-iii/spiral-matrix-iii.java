@@ -1,27 +1,51 @@
 class Solution {
     public int[][] spiralMatrixIII(int rows, int cols, int rStart, int cStart) {
         int[][] result = new int[rows * cols][2];
-        int index = 0;
-        int[][] directions = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
-        int dirIndex = 0;
-        int steps = 1;
-
-        result[index++] = new int[]{rStart, cStart};
-
-        while (index < rows * cols) {
-            for (int i = 0; i < 2; i++) {
-                for (int j = 0; j < steps; j++) {
-                    rStart += directions[dirIndex][0];
-                    cStart += directions[dirIndex][1];
-                    if (rStart >= 0 && rStart < rows && cStart >= 0 && cStart < cols) {
-                        result[index++] = new int[]{rStart, cStart};
-                    }
+        int k = 0;
+        
+        int r = rStart, c = cStart;
+        int step = 1;
+        
+        result[k++] = new int[] { r, c };
+        
+        while (k < rows * cols) {
+            // Move right
+            for (int i = 0; i < step; i++) {
+                c++;
+                if (c >= 0 && c < cols && r >= 0 && r < rows) {
+                    result[k++] = new int[] { r, c };
                 }
-                dirIndex = (dirIndex + 1) % 4;
             }
-            steps++;
+            
+            // Move down
+            for (int i = 0; i < step; i++) {
+                r++;
+                if (c >= 0 && c < cols && r >= 0 && r < rows) {
+                    result[k++] = new int[] { r, c };
+                }
+            }
+            
+            step++;
+            
+            // Move left
+            for (int i = 0; i < step; i++) {
+                c--;
+                if (c >= 0 && c < cols && r >= 0 && r < rows) {
+                    result[k++] = new int[] { r, c };
+                }
+            }
+            
+            // Move up
+            for (int i = 0; i < step; i++) {
+                r--;
+                if (c >= 0 && c < cols && r >= 0 && r < rows) {
+                    result[k++] = new int[] { r, c };
+                }
+            }
+            
+            step++;
         }
-
+        
         return result;
     }
 }
