@@ -1,16 +1,27 @@
+import java.util.HashMap;
+
 class Solution {
     public boolean canBeEqual(int[] target, int[] arr) {
-        Arrays.sort(target);
-        Arrays.sort(arr);
-        boolean ans = true;
 
-        for(int i=0; i<target.length; i++){
-            if(target[i] != arr[i]){
-                ans = false;
-                break;
+        HashMap<Integer, Integer> hm = new HashMap<>();
+
+        for (int num : arr) {
+            hm.put(num, hm.getOrDefault(num, 0) + 1);
+        }
+
+        for (int num : target) {
+            if (!hm.containsKey(num) || hm.get(num) == 0) {
+                return false;
+            }
+            hm.put(num, hm.get(num) - 1);
+        }
+
+        for (int count : hm.values()) {
+            if (count != 0) {
+                return false;
             }
         }
 
-        return ans;
+        return true;
     }
 }
