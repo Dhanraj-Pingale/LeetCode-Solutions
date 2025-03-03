@@ -1,42 +1,22 @@
 class Solution {
-
-    public ArrayList<ArrayList<Integer>> toList(int[][] matrix) {
-        ArrayList<ArrayList<Integer>> list = new ArrayList<>();
-        int n = matrix.length;
-
-        // initialize the empty arraylists in the main arraylist
-        for (int i = 0; i < n; i++) {
-            list.add(new ArrayList<>());
-        }
-
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                if (matrix[i][j] == 1) {
-                    list.get(i).add(j);
-                }
-            }
-        }
-        return list;
-    }
-
-    public void dfsUtil(ArrayList<ArrayList<Integer>> list, boolean[] visited, int curr) {
+    public void dfsUtil(int[][] matrix, boolean[] visited, int curr) {
         visited[curr] = true;
 
-        for (int dest : list.get(curr)) {
-            if (!visited[dest]) {
-                dfsUtil(list, visited, dest);
+        for (int i = 0; i < matrix.length; i++) {
+            if (matrix[curr][i] == 1 && !visited[i]) { 
+                dfsUtil(matrix, visited, i);
             }
         }
     }
 
-    public int dfs(ArrayList<ArrayList<Integer>> list) {
+    public int dfs(int[][] matrix) {
         int count = 0;
-        boolean[] visited = new boolean[list.size()];
+        boolean[] visited = new boolean[matrix.length];
 
-        for (int i = 0; i < list.size(); i++) {
-            if(!visited[i]){
+        for (int i = 0; i < matrix.length; i++) {
+            if (!visited[i]) {  
                 count++;
-                dfsUtil(list, visited, i);
+                dfsUtil(matrix, visited, i);
             }
         }
 
@@ -44,6 +24,6 @@ class Solution {
     }
 
     public int findCircleNum(int[][] isConnected) {
-        return dfs(toList(isConnected));
+        return dfs(isConnected);
     }
 }
