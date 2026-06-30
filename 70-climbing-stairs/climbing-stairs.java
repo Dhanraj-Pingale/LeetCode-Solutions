@@ -1,17 +1,11 @@
 class Solution {
     public int climbStairs(int n) {
-        Map<Integer, Integer> dp = new HashMap<>();
-        return climbStairs(n, dp);
-    }
+        int[] dp = new int[n+1];
+        dp[0] = 1; dp[1] = 1;
 
-    private int climbStairs(int n, Map<Integer, Integer> dp) {
-        if (n == 0 || n == 1) {
-            return 1;
+        for(int i=2; i<=n; i++){
+            dp[i] = dp[i-1] + dp[i-2];
         }
-        if (!dp.containsKey(n)) {
-            dp.put(n, climbStairs(n - 1, dp) + climbStairs(n - 2, dp));
-        }
-
-        return dp.get(n);
+        return dp[n];
     }
 }
